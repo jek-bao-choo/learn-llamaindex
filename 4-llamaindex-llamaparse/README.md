@@ -1,4 +1,4 @@
-https://docs.llamaindex.ai/en/stable/understanding/agent/rag_agent/
+https://docs.llamaindex.ai/en/stable/understanding/agent/llamaparse/
 
 `mkdir 3-llamaindex-basic-rag`
 

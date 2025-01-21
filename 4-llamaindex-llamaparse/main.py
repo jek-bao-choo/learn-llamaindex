@@ -8,6 +8,7 @@ from llama_index.core.tools import FunctionTool
 
 from llama_index.core import SimpleDirectoryReader, VectorStoreIndex, Settings
 from llama_index.core.tools import QueryEngineTool
+from llama_parse import LlamaParse
 
 def multiply(a: float, b: float) -> float:
     """Multiply two numbers and returns the product"""
@@ -26,12 +27,14 @@ add_tool = FunctionTool.from_defaults(fn=add)
 
 Settings.llm = OpenAI(model="gpt-4o-mini", temperature=0)
 
-documents = SimpleDirectoryReader("./data").load_data()
-index = VectorStoreIndex.from_documents(documents)
-query_engine = index.as_query_engine()
+documents2 = LlamaParse(result_type="markdown").load_data(
+    "./data/2023_canadian_budget.pdf"
+)
+index2 = VectorStoreIndex.from_documents(documents2)
+query_engine2 = index2.as_query_engine()
 
 budget_tool = QueryEngineTool.from_defaults(
-    query_engine,
+    query_engine2,
     name="canadian_budget_2023",
     description="A RAG engine with some basic facts about the 2023 Canadian federal budget.",
 )
@@ -40,31 +43,14 @@ agent = ReActAgent.from_tools(
     [multiply_tool, add_tool, budget_tool], verbose=True
 )
 
-# response = query_engine.query(
-#     "What was the total amount of the 2023 Canadian federal budget?"
-# )
-
-# response = query_engine.query(
-#     "Why do people dislike Justin?"
-# )
-
-# response = query_engine.query(
-#     "What was the total amount of the 2022 Canadian federal budget?"
-# )
-
-# response = query_engine.query(
-#     "What was the 2023 Canadian federal deficiet?"
-# )
-
-# response = agent.chat(
-#     "What is the total amount of the 2023 Canadian federal deficit? Then multiplied by 3? Go step by step, using a tool to do any math."
-# )
-
 response = agent.chat(
     "How much exactly was allocated to a tax credit to promote investment in green technologies in the 2023 Canadian federal budget?"
 )
 
 print(response)
+
+
+
 
 
 
