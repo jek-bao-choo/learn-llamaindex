@@ -1,0 +1,23 @@
+https://docs.llamaindex.ai/en/stable/understanding/workflows/basic_flow/
+
+`mkdir 6-llamaindex-workflow`
+
+`cd 6-llamaindex-workflow`
+
+`conda create --name llamaindex-basic-agent python=3.12` instead of poetry
+
+`conda activate llamaindex-basic-agent`
+
+`conda env list`
+
+`pip install llama-index python-dotenv`
+
+`pip install llama-index-core`
+
+`pip install llama-index-utils-workflow`
+
+`conda list`
+
+`echo $OPENAI_API_KEY` https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety 
+
+`python main.py`
